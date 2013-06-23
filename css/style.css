@@ -1,0 +1,58 @@
+/**
+ * @author  Erick Song
+ * @email   ahschl0322@gmail.com
+ * @info    basic styles
+ */
+
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h6,form,input,p,th,td{margin:0;padding:0;border:0}
+table{border-collapse:collapse;border-spacing:0}
+img{border:0}
+em,strong,th{font-style:normal;font-weight:normal}
+ul,ol,li{list-style:none}
+th{text-align:left}
+h1,h2,h3,h6{font-size:100%;font-weight:normal}
+q:before,q:after{content:''}
+input{font-family:inherit;font-size:inherit;font-weight:inherit;font-size:100%;}
+.fl{ float:left;} .fr{ float:right;}
+.cf:before,.cf:after {content:"";display:table;}
+.cf:after {clear:both;}
+.cf {zoom:1;}
+
+body{ font:normal 12px/1.5 tahoma,arial,\5b8b\4f53;}
+h1,h2,h3{ font-family:\5FAE\8F6F\96C5\9ED1,Simsun,arial,\5b8b\4f53; text-shadow: 0px -1px #bbb,0 1px #fff}
+h1{font-size:18px;} h2{font-size:14px;}
+strong{font-weight:bold;}
+input { resize: none; outline: none; }
+
+a{ color:#ccc; text-decoration:none;}
+a:hover{ text-decoration:underline;}
+a.sina,a.qq{ display:block; width:24px; height:24px; margin:5px; float:left; display:inline; overflow:hidden;}
+a.sina{ background:url(../images/icon/btn_trans.gif) 0 -32px no-repeat;}
+a.qq{ background:url(../images/icon/qq24.gif) no-repeat;}
+
+header{ text-align:center; padding:5px 20px; background:#e6e6e6}
+section{ margin:20px; padding-bottom:30px; min-width: 900px}
+article{ margin-bottom:15px}
+article h2{ font-weight:bold}
+article em{ font-style: italic;}
+.case li a{ color:#999;}
+article strong, .case p{ margin-bottom: 5px}
+.info a{ color:#00f;}
+.info figure{ float:right; margin-top:-15px}
+.info figure img{border:2px solid #999}
+.info figure p img{border:none}
+.icon{ cursor: pointer; margin-top:20px; overflow:hidden;}
+.gallery li{ float:left; width:200px; height:150px; margin:8px}
+.gallery li img{ padding:2px; border:0}
+.gallery li:hover img{  padding:0; border:2px solid #f90}
+
+footer{ display:block; width:100%; position:fixed; _position:absolute; bottom:0; left:0; padding:5px 0; background:#f1f1f1}
+footer p{ float:right; padding-right:20px; color:#333; text-shadow: 0px -1px #bbb,0 1px #fff}
+
+
+/*@media print{
+	header, .icon, .print{ display:none;}
+	a.sina,a.qq{ display:block; width:24px; height:24px; margin:5px; float:left; display:inline; overflow:hidden;}
+	a.sina{ background:url(http://img.t.sinajs.cn/t35/appstyle/opent/images/app/btn_trans.gif) 0 -32px no-repeat;}
+	a.qq{ background:url(../images/icon/qq24.gif) no-repeat;}
+}*/
