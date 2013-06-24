@@ -15,6 +15,7 @@ function Calendar(options){
 		this.YearDic = [];
 		this.DateDom = options.id;				//DateDom
 
+		//bind class name
 		this.UiMaker = {
 			getYear : self.DateDom.find('.y'),
 			getMonth : self.DateDom.find('.m'),
@@ -29,7 +30,7 @@ function Calendar(options){
 			return _temp;
 		}();
 
-		this.initlize(); //start
+		this.initlize(); //Initlaze...
 
 	}else{
 		return new Calendar(options);
