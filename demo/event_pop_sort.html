@@ -1,0 +1,68 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="gbk">
+    <title>冒泡排序</title>
+</head>
+<body>
+    <input id="array" name="" type="text" value="5,8,2,7,9,3,4,6,1" />
+    <input id="btn" type="button" value="冒泡排序" />
+    <p>
+        <label for="asc"><input id="asc" name="sort" type="radio" value="asc" checked=true /> 升序</label>
+        <label for="desc"><input id="desc" name="sort" type="radio" value="desc" /> 降序</label>
+    </p>
+    <textarea id="msg" name="" rows="10" cols="30"></textarea>
+    <script type="text/javascript">
+        var btn = document.getElementById("btn"),
+        msg = document.getElementById("msg"),
+        array = new Array;
+        arrayObj = document.getElementById("array");
+        //getSortType
+        function getSortType() {
+            var sort = document.getElementsByName("sort"),
+            sortType;
+            for (var r = 0; r < sort.length; r++) {
+                if (sort[r].checked) {
+                    sortType = sort[r].value;
+                }
+            }
+            return sortType;
+        };
+        //ASC
+        function asc(array) {
+            var len = array.length;
+            for (var i = 0; i < len - 1; i++) {
+                for (var j = 0; j < len - i - 1; j++) {
+                    if (array[j] > array[j + 1]) {
+                        temp = array[j];
+                        array[j] = array[j + 1];
+                        array[j + 1] = temp;
+                    }
+                }
+                msg.value += "第" + (i + 1) + "趟：" + array + "\n";
+            }
+            return array;
+        };
+        //DESC
+        function desc(array) {
+            var len = array.length;
+            for (var i = 0; i < len - 1; i++) {
+                for (var j = len - 1; j > i; j--) {
+                    if (array[j] > array[j - 1]) {
+                        temp = array[j];
+                        array[j] = array[j - 1];
+                        array[j - 1] = temp;
+                    }
+                }
+                msg.value += "第" + (i + 1) + "趟：" + array + "\n";
+            }
+            return array;
+        };
+        btn.onclick = function() {
+            array = arrayObj.value.split(",");
+            msg.value = "";
+            (getSortType() === "asc") ? asc(array) : desc(array);
+        };
+    </script>
+</body>
+</html>

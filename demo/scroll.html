@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>scroll</title>
+<style type="text/css">
+#obj{height:80px; overflow:auto; border:solid 1px red;font-size:12px;color:#000;}
+</style>
+</head>
+<body>
+<div id="obj"></div>
+<input type="button" value="添加文字" onclick="document.getElementById('obj').innerHTML+=Math.random()+'<br />'" />
+<input type="checkbox" id="autoScroll" /><label for="autoScroll">自动滚屏</label>
+</body>
+</html>
+<script type="text/javascript">
+function scrollBottom(){
+	var autoObj=document.getElementById("autoScroll");
+	if(!autoObj.checked){return;}
+	var obj=document.getElementById("obj");
+	var n1 = parseInt(obj.clientHeight);
+	var n2 = parseInt(obj.scrollHeight);
+	obj.scrollTop=n2-n1;
+}
+setInterval("scrollBottom()",100);
+</script>
