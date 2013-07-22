@@ -15,6 +15,7 @@ Bracket Highlighte 括号匹配高亮插件
 GBK Encoding Support GBK 编码插件
 AndyPython Python标准库帮助提示插件
 
+
 SublimeCodeIntel，一个功能强大的自动补全代码工具。
 {
 	"sublimelinter_popup_errors_on_save": true
