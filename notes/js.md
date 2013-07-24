@@ -76,3 +76,9 @@ var diff=function(a,b) {
 }
 var ret=diff([1,2,3,4,5],[1,3,6,8,9,10]);
 //ret is [2,4,5]
+
+> 14. [1,2,3,4,5].duplicator(); //outputs [1,2,3,4,5,1,2,3,4,5] ?
+Array.prototype.duplicator = function(){
+    return this.concat(this);
+}
+[1,2,3,4,5].duplicator();
