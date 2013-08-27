@@ -9,3 +9,4 @@
         <iframe class="iframe-hacker" style="height: 100%; width: 100%;"></iframe>
         <div class="nav-panel dropdown open" id="nav-dropdown-5">xxx</div> //relative
     </div>```
+6. iPad 下video上的浮层无法点击 -> video不要设置control属性

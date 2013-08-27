@@ -1,9 +1,10 @@
 //form 操作
 
 //radio button
-var checked = this.checked;
+```var checked = this.checked;```
 
 //select option
+``` JS
 function isExistSelect(objSelect, objItemValue){
 	var isExit = false;
     for (var i = 0; i < objSelect.options.length; i++) {
@@ -14,7 +15,9 @@ function isExistSelect(objSelect, objItemValue){
     }
     return isExit;
 }
+```
 
+``` JS
 function addItemToSelect(objSelect, objItemText, objItemValue) {
     //判断是否存在
     if (isExistSelect(objSelect, objItemValue)) {
@@ -24,3 +27,4 @@ function addItemToSelect(objSelect, objItemText, objItemValue) {
         objSelect.options.add(varItem);
     }
 }
+```

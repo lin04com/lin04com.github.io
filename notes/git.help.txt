@@ -63,21 +63,20 @@ http://www.nshen.net/sitelog/2011/08/03/git-note.html
 	解决办法：
 	$ git pull origin master //先把远程服务器github上面的文件拉先来，再push 上去。
 
-	//https://help.github.com/articles/fork-a-repo
-	git clone https://github.com/username/Spoon-Knife.git
-	cd Spoon-Knife
-	# Changes the active directory in the prompt to the newly cloned "Spoon-Knife" directory
-	git remote add upstream https://github.com/octocat/Spoon-Knife.git
-	# Assigns the original repository to a remote called "upstream"
+	//https://help.github.com/articles/syncing-a-fork
+	git remote add upstream https://github.com/被fork的仓库.git
 	git fetch upstream
-	# Pulls in changes not present in your local repository, without modifying your
+    git merge upstream/master
 
-	git fetch upstream
-	# Fetches any new commits from the original repository
-	git merge upstream/master
-	# Merges any fetched commits into your working files
+	#同步fork代码
+	$ git remote -v #列出目前的遠端repo
+	$ git remote add upstream https://github.com/otheruser/repo.git #加入一個新的遠端repo
+	$ git remote -v #查看新加入的遠端repo
+	$ git fetch upstream #取回新加入的遠端repo的所有分支(branches)
+	$ git branch -va #查看目前本機和遠端的所有分支(branches)
+	$ git merge upstream/master #合併upstream的master到目前repo的master
+	$ git status #如果merge時遇到conflict, 例如README.md conflict
 -->
-
 
 1. 安装目录：D:\Program Files (x86)\Git\bin\sh.exe
 2. 仓库目录：E:\DEMO\git
@@ -699,3 +698,42 @@ git-sh-setup
 　　#前面忽略了assets文件夹,但是不要忽略它底下的abc这个文件夹
 
 　　!assets/abc/
+
+
+=================================================================
+
+//where git -> C:\Users\erick\.gitconfig
+## git对比工具beyond compare3配置(http://my.oschina.net/qq277049/blog/80379)
+```
+For Git 1.7.6 and newer, edit the global config file to set the path:
+
+新版本的配置方式
+
+Diff
+
+At a Windows command prompt enter the commands:
+  git config --global diff.tool bc3
+  git config --global difftool.bc3.path "c:/program files/beyond compare 3/bcomp.exe"
+
+To launch a diff with BC3, use the command “git difftool foofile.txt”.
+
+3-way Merge (v3 Pro)
+
+At a Windows command prompt, enter the commands:
+  git config --global merge.tool bc3
+  git config --global mergetool.bc3.path "c:/program files/beyond compare 3/bcomp.exe"
+
+To launch a 3-way merge with BC3, use the command “git mergetool foofile.txt”.
+
+也可以直接修改.gitconfig文件，直接增加如下
+
+[diff]
+  tool = bc3
+[difftool "bc3"]
+  path = C:/Program Files (x86)/Beyond Compare 3/bcomp.exe
+[merge]
+  tool = bc3
+[mergetool "bc3"]
+  path = C:/Program Files (x86)/Beyond Compare 3/bcomp.exe
+
+```
