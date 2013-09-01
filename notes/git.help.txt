@@ -127,6 +127,9 @@ git commit -m 'first commit...'
 git remote and origin git@github.com:lin04com/lin04com.git
 git push origin master
 
+5. git log | git log -5 | git log -p | git log -p --author=xxx | git log --since=2011-05-24 | git log --until=2013-08-31 | git log --name-only
+
+6. git grep keyword | git grep keyword -i -A10 -B10
 
 ==============================================================================================================
 http://blog.csdn.net/sunboy_2050/article/details/7529022
