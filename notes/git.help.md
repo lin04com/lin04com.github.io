@@ -740,3 +740,8 @@ To launch a 3-way merge with BC3, use the command “git mergetool foofile.txt�
   path = C:/Program Files (x86)/Beyond Compare 3/bcomp.exe
 
 ```
+
+## Git 命令大全
+![git图解][box-standed]
+
+[git-png]: ../images/2010072023345292.png
