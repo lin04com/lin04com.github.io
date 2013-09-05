@@ -741,7 +741,7 @@ To launch a 3-way merge with BC3, use the command “git mergetool foofile.txt�
 
 ```
 
-## Git 命令大全
+## Git 命令大全 - [http://www.cnblogs.com/1-2-3/archive/2010/07/18/git-commands.html]
 ![git图解][box-standed]
 
 [git-png]: ../images/2010072023345292.png
