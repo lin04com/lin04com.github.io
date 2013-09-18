@@ -85,6 +85,10 @@ git help
 git clone git@github.com/lin04com	git@github.com:lin04com/lin04com.git
 git show-ref 查看引用信息
 
+git clean -f ( -d if you have new directory )
+git reset --hard ( or git reset then back to 1. )
+git checkout . ( or specify with file names )
+git reset --hard ( or git reset then back to 3. )
 
 //https://sites.google.com/a/kingofat.com/wiki/git-tutorial
 1.创建目录

