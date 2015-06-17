@@ -1,5 +1,25 @@
 Git:
 
+## git 支持中文 http://www.diguage.com/archives/26.html
+
+%GIT_HOME%\etc\gitconfig
+[gui]
+     encoding = utf-8
+[i18n]
+     commitencoding = gbk
+[svn]
+     pathnameencoding = gbk
+
+Git Bash 中输入 ls 命令，可以正常显示中文文件名：
+    修改%Gi%t\etc\git-completion.bash，如果没有则在末尾添加下面一行：
+    alias ls='ls --show-control-chars --color=auto'
+
+在Git Bash 中可以正常输入中文：
+    修改%Git%\etc\inputrc，修改配置项如下：
+    set output-meta on
+    set convert-meta off
+
+
 vim .git/config
 
 $ gitk --all & - 查看你做了什么
@@ -15,6 +35,8 @@ http://artori.us/git-github-usage/
 https://github.com/yfwz100/neuola/wiki/github%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97
 http://www.cnblogs.com/plinx/archive/2013/04/08/3009159.html
 http://www.nshen.net/sitelog/2011/08/03/git-note.html
+
+git revert --hard
 
 <!--
 	1. 安装软件 Windows请至：http://code.google.com/p/msysgit/
@@ -155,7 +177,7 @@ http://blog.csdn.net/sunboy_2050/article/details/7529022
 检出仓库：        $ git clone git://github.com/jquery/jquery.git
 查看远程仓库：$ git remote -v
 添加远程仓库：$ git remote add [name] [url]
-删除远程仓库：$ git remote rm [name]
+删除远程仓库：$ git remote rm [name] 	git -r -d featurename or git push origin :feature => 空分支
 修改远程仓库：$ git remote set-url --push [name] [newUrl]
 拉取远程仓库：$ git pull [remoteName] [localBranchName]
 推送远程仓库：$ git push [remoteName] [localBranchName]
@@ -749,3 +771,117 @@ To launch a 3-way merge with BC3, use the command “git mergetool foofile.txt�
 ![git图解][box-standed]
 
 [git-png]: ../images/2010072023345292.png
+
+
+http://jekyllrb.com/
+http://jekyllcn.com/
+
+http://www.ruanyifeng.com/blog/2012/07/git.html
+
+创建一个修补bug分支：
+git checkout -b fixbug-0.1 master
+
+修补结束后，合并到master分支：
+git checkout master
+git merge --no-ff fixbug-0.1
+git tag -a 0.1.1
+
+再合并到develop分支：
+git checkout develop
+git merge --no-ff fixbug-0.1
+
+最后，删除"修补bug分支"：
+git branch -d fixbug-0.1
+
+
+https://github.com/neuola/neuola-legacy/wiki/github%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97
+git clone <address>：复制代码库到本地。
+git add <file> ...：添加文件到代码库中。
+git rm <file> ...：删除代码库的文件。
+git commit -m <message>：提交更改，在修改了文件以后，使用这个命令提交修改。
+git pull：从远程同步代码库到本地。
+git push：推送代码到远程代码库。
+git branch：查看当前分支。带*是当前分支。
+git branch <branch-name>：新建一个分支。
+git branch -d <branch-name>：删除一个分支。
+git checkout <branch-name>：切换到指定分支。
+git log：查看提交记录（即历史的 commit 记录）。
+git status：当前修改的状态，是否修改了还没提交，或者那些文件未使用。
+git reset <log>：恢复到历史版本。
+
+
+## 关联分支
+git branch --set-upstream-to=origin/<branch> feature/v4.1.2
+
+ericksong@021ZJ1799 /E/workspace/pplive/GitLab/static9 (feature/v4.1.2)
+$ git branch --set-upstream-to=origin/feature/v4.1.2 feature/v4.1.2
+Branch feature/v4.1.2 set up to track remote branch feature/v4.1.2 from origin.
+
+
+git checkout origin/master -b new branch name
+
+git checkout master
+git merge localbranch
+
+查看我最近两次修改详情
+git log --author=ericksong -p -2
+
+查看radar相关修改
+git log --grep='radar'
+ericksong@021ZJ1799 /E/workspace/pplive/GitLab/static9 (master)
+$ git log --grep='radar'
+commit a3ec5bad62dded2150ea71f982bcda84daeda97f
+Author: ericksong <ericksong@pptv.com>
+Date:   Thu Dec 11 12:53:59 2014 +0800
+
+    fix bug for radar - no ad
+
+commit c6d570ec9585d8c18ace08594dbc8f364fc1bf8c
+Author: ericksong <ahschl0322@gmail.com>
+Date:   Mon Dec 8 14:39:22 2014 +0800
+
+    modify radar tabs name
+
+
+
+ericksong@021ZJ1799 /E/workspace/pplive/GitLab/static9 (feature/sport-list)
+$ git checkout develop
+Switched to branch 'develop'
+
+ericksong@021ZJ1799 /E/workspace/pplive/GitLab/static9 (develop)
+$ git pull origin develop
+From gitlab:static9/static9
+ * branch            develop    -> FETCH_HEAD
+Updating 2cacc69..8c4e09c
+Fast-forward
+ pptv/main/dist/main.js         | 25 +++++++++++++------------
+ pptv/main/dist/util/suggest.js | 25 +++++++++++++------------
+ pptv/main/src/util/suggest.js  | 25 +++++++++++++------------
+ 3 files changed, 39 insertions(+), 36 deletions(-)
+
+ericksong@021ZJ1799 /E/workspace/pplive/GitLab/static9 (develop)
+$ git checkout feature/sport-list
+Switched to branch 'feature/sport-list'
+
+ericksong@021ZJ1799 /E/workspace/pplive/GitLab/static9 (feature/sport-list)
+$ git rebase develop
+First, rewinding head to replay your work on top of it...
+Applying: merge css from svn
+Using index info to reconstruct a base tree...
+M       pub/flagment/modules/mod-list/list.css
+<stdin>:10: trailing whitespace.
+.video-li .ui-160x90 .ui-seen .s_seen{height:82px;}
+warning: 1 line adds whitespace errors.
+Falling back to patching base and 3-way merge...
+No changes -- Patch already applied.
+Applying: 从svn同步体育列表页所需要的文件
+Applying: 体育列表页bugfix
+Applying: sportlist 修改
+Applying: 体育列表页bugfix
+Applying: 加载更多优化，选中优化
+Applying: bugfix，高度太高
+Applying: 增加选中态
+
+
+http://blog.csdn.net/hudashi/article/details/7664631
+http://gitbook.liuhui998.com/4_2.html

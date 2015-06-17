@@ -306,3 +306,6 @@ var console=console||{log:function(){}}
         console[methods[length]] = console[methods[length]] || noop;
     }
 }());
+
+## 面试题
+https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers
