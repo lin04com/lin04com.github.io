@@ -3,6 +3,8 @@ Git:
 ## git 支持中文 http://www.diguage.com/archives/26.html
 
 http://git.oschina.net/wzw/git-quick-start
+http://rogerdudler.github.io/git-guide/index.zh.html
+http://git-scm.com/book/zh/v1
 
 %GIT_HOME%\etc\gitconfig
 [gui]
