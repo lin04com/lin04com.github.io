@@ -1,5 +1,16 @@
 Git:
 
+暴强的命令行git提交历史记录查询
+git log --oneline --graph --decorate
+git log -p "文件名" |grep "删除掉内容"
+
+补充：
+这样可以查找到删除的内容和commit id
+git log -G"删除掉内容" -p
+
+依云 补充：
+-G 是查正则的。查文本用 -S
+
 ## git 支持中文 http://www.diguage.com/archives/26.html
 
 http://git.oschina.net/wzw/git-quick-start
